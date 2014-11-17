@@ -43,8 +43,20 @@ public class HelloWorldAction implements Action{
 	public String execute2() throws Exception{
 		
 		this.message="Hello World2 "+this.name;
+		
+		
+		
 		return SUCCESS;
 		
+		
+		
+		
+		
+	}
+	
+	public String find() throws Exception{
+		
+		return  "fatal";
 	}
 
 

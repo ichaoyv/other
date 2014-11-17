@@ -18,12 +18,33 @@ public class LoginAction implements Action{
 	
 	private String message;
 	
+	private String role;
+	
+	
+	
+	
 	
 	
 	
 	
 
 	
+	public String getRole() {
+		return role;
+	}
+
+
+
+
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+
+
+
+
 	public String getMessage() {
 		return message;
 	}
@@ -57,6 +78,8 @@ public class LoginAction implements Action{
 
 
 	public String execute() throws Exception{
+		
+		System.out.println("execute Method invoked");
 		
 		
 		if("admin".equals(user.getUsername())&&"admin".equals(user.getPassword())){
@@ -98,8 +121,48 @@ public class LoginAction implements Action{
 	}
 
 	
+	public String test() throws Exception{
+		System.out.println("testMethod invoked");
+		
+		return INPUT;
+	}
 	
 	
+	public String adminLogin() throws Exception{
+		System.out.println("adminLogin method invoked");
+		
+		return SUCCESS;
+		
+		
+		
+		
+	}
+	
+	public String genricLogin() throws Exception{
+		System.out.println("gerlicLogin method invoked");
+		
+		return SUCCESS;
+	}
+	
+	public String dynamic() throws Exception{
+		
+		if("admin".equals(user.getUsername())){
+			
+			this.role="ADMIN";
+		}else{
+			this.role="USER";
+			
+			
+		}
+		return SUCCESS;
+		
+		
+		
+		
+		
+		
+		
+	}
 	
 	 
 
