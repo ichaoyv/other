@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<!-- http://localhost:8080/struts2demo1/hello.action -->
+
+	<!-- 开发者模式，输出更多调试信息-->
+	<constant name="struts.devMode" value="true"></constant>
+
+	<!-- 配置文件修改的时候被重新加载 -->
+	<constant name="struts.configuration.xml.reload" value="true"></constant>
+	<!-- 修改系统的主题（页面） -->
+	<constant name="struts.ui.theme" value="simple"></constant>
+
+	<!--启动动态方法调用 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
+
+
+
+
+	<package name="default" namespace="/" extends="struts-default">
+
+		<interceptors>
+			<interceptor name="myInterceptor" class="interceptor.MyInterceptor"></interceptor>
+			
+			
+			<interceptor name="myInterceptor1" class="interceptor.MyInterceptor"></interceptor>
+			
+			<interceptor name="myInterceptor2" class="interceptor.MyInterceptor"></interceptor>
+			<interceptor name="myInterceptor3" class="interceptor.MyInterceptor"></interceptor>
+			<!-- 把多个拦截器打包成一个 -->
+			<interceptor-stack name="myInterStack">
+			     <interceptor-ref name="myInterceptor"></interceptor-ref>
+			     <interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+
+
+
+
+		<default-action-ref name="defaultAction2"></default-action-ref>
+		<!-- 全局结果集 -->
+
+		<global-results>
+			<result name="error">error.jsp</result>
+			<result name="fatal">fatal.jsp</result>
+		</global-results>
+
+		<action name="hello" class="action.HelloWorldAction" method="execute">
+			<result name="success" type="dispatcher">hello.jsp</result>
+		</action>
+
+		<action name="hello2" class="action.HelloWorldAction" method="execute2">
+			<result name="success">hello.jsp</result>
+		</action>
+
+		<action name="hello3" class="action.HelloWorldAction" method="find">
+			<result name="success">hello.jsp</result>
+		</action>
+
+
+		<action name="login" class="action.LoginAction">
+			<interceptor-ref name="myInterStack">
+			  
+			   
+			
+			</interceptor-ref>
+			
+
+			<result name="success">welcome.jsp</result>
+			<result name="input">login.jsp</result>
+		</action>
+
+		<action name="defaultAction">
+			<result>error.jsp</result>
+		</action>
+
+		<!-- 默认Action -->
+
+		<action name="defaultAction2" class="action.DefaultAction">
+		</action>
+
+		<!-- 用一个action配置来表示多个方法的调用 -->
+
+
+		<action name="*User" class="action.LoginAction" method="{1}Login">
+			<result name="success">{1}Page.jsp</result>
+		</action>
+
+
+		<!-- 动态结果集 结果视图在运行之前是不确定-->
+
+		<action name="daynamicLogin" class="action.LoginAction" method="dynamic">
+			<result name="success" type="redirectAction">${role}</result>
+		</action>
+
+		<action name="ADMIN" class="action.LoginAction" method="adminLogin">
+			<result name="success">adminPage.jsp</result>
+		</action>
+
+
+		<action name="USER" class="action.LoginAction" method="genricLogin">
+			<result name="success">genricPage.jsp</result>
+		</action>
+		
+		<action name="upload" class="action.UploadAction">
+		   <param name="savePath">upload</param>
+		   <result name="success">uploadSuccess.jsp</result>
+		</action>
+		
+		
+		<action name="download" class="action.DowloadAction">
+		   <param name="inputPath">upload</param>
+		    <result name="success" type="stream" >
+		       <param name="contentType">image/pjpeg</param>
+			    <param name="inputName">inputStream</param>
+			    <param name="contentDisposition">attachment;filename="${fileName}"</param>
+			    <param name="bufferSize">4096</param>
+		    </result>
+		  
+		</action>
+
+
+
+
+
+	</package>
+
+
+
+
+
+
+
+
+
+
+</struts>
